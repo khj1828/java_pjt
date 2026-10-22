@@ -163,6 +163,18 @@ public class LoopEx {
 		 *   
 		 */
 		
+            for (int i = 1; i <= 5; i++) {
+			
+			for (int j = 0; j < 5-i; j++) {
+				System.out.print(" ");
+			}
+			
+			for (int k = 0; k < 2*i-1; k++) {
+				System.out.print("*");
+			}
+			
+			System.out.println();
+		}
 		//달력만들기 (이거는 for문 거의 필수!!)
 		
 		System.out.println("MOT\tTUE\tWED\tTHU\tFRI\tSAT\tSUN");
@@ -189,6 +201,19 @@ public class LoopEx {
 			offset = 0;
 		    System.out.println();
 				
+		}
+		
+            for (int i = 1; i <= 5; i++) {
+			
+			for (int j = 0; j < 5-i; j++) {
+				System.out.print(" ");
+			}
+			
+			for (int k = 0; k < 2*i-1; k++) {
+				System.out.print("*");
+			}
+			
+			System.out.println();
 		}
 		
 		
