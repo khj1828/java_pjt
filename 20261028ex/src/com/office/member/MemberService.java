@@ -21,8 +21,34 @@ public class MemberService {
 		System.out.println("Input new member ID");
 		String memberId = scanner.next();
 		
+		while (true) {
+			Member member = db.memberDB.get(memberId);
+			if (member != null) {
+				System.out.println("Input new member ID");
+				memberId = scanner.next();
+			} else {
+				break;
+			}
+		}
+		
+//		
+//		if (db.memberDB.get(memberId) != null) {
+//		    System.out.println("이미 존재하는 ID입니다.");
+//		    return;
+//		}
+		
 		System.out.println("Input new member PW");
 		String memberPw = scanner.next();
+		while (true) {
+		if (memberPw.length() < 8 || memberPw.length() > 12) {
+		    System.out.println("비밀번호는 8~12자로 입력해주세요.");
+		    memberPw = scanner.next();
+		     } else {
+					break;
+					
+				}
+				
+			}
 		
 		System.out.println("Input new member MAIL");
 		String memberMail = scanner.next();
@@ -48,7 +74,24 @@ public class MemberService {
 	 * 로그인
 	 */
 	
-	public void doSignIn(Scanner scanner) {
+	public void doSignIn(Scanner scanner, Flag flag) {
+		
+		System.out.println("systemFlag : " + flag.systemFlag);
+		
+		int count = 1;
+		while (true) {
+			
+			if(count > 3) {
+				flag.systemFlag = false;
+		        break;
+			}
+//			System.out.println("Input member ID");
+//			String memberId = scanner.next();
+//			
+//			System.out.println("Input member PW");
+//			String memberPw = scanner.next();
+//		}
+//		
 		
 		System.out.println("Input member ID");
 		String memberId = scanner.next();
@@ -59,16 +102,22 @@ public class MemberService {
 		//MemberDB db = new MemberDB();
 		Member searchedMember = db.memberDB.get(memberId);
 		//searchedMember: Member or null
-		if (searchedMember != null) {
-			
-			if (searchedMember.memberPw.equals(memberPw)) {
-				System.out.println("1.SIGN-IN SUCESS!!");
-			} else {
-				System.out.println("2.SIGN-IN FAIL!!");
-			}
+		
+		if (searchedMember != null && searchedMember.memberPw.equals(memberPw)) {
+			System.out.println("1.SIGN-IN SUCESS!!");
+			break;
+//			if (searchedMember.memberPw.equals(memberPw)) {
+//				System.out.println("1.SIGN-IN SUCESS!!");
+//			} else {
+//				System.out.println("2.SIGN-IN FAIL!!");
+//			}
+//		} 
 		} else {
 			System.out.println("3.SIGN-IN FAIL!!");
+			count++;
 		}
+		}
+		
 		/*
 		 * 과제 : 로그인 실패가 3회초과이면 시스템 종료
 		 */
@@ -91,10 +140,25 @@ public class MemberService {
 		System.out.println("Input member PHONE");
 		String memberPhone = scanner.next();
 		
-		Member searchedMember= db.memberDB.get(memberId);
-		searchedMember.memberPw = memberPw;
-		searchedMember.memberMail = memberMail;
-		searchedMember.memberPhone = memberPhone;
+		//인증절차추가
+		
+		Member searchedMember = db.memberDB.get(memberId);
+		
+		if (searchedMember != null && searchedMember.memberPw.equals(memberPw)) {
+			searchedMember.memberPw = memberPw;
+			searchedMember.memberMail = memberMail;
+			searchedMember.memberPhone = memberPhone;
+		
+		} else {
+			return;
+		}
+		
+		
+		
+		//Member searchedMember= db.memberDB.get(memberId);
+		//searchedMember.memberPw = memberPw;
+		//searchedMember.memberMail = memberMail;
+		//searchedMember.memberPhone = memberPhone;
 		
 		//로깅
 		searchedMember = db.memberDB.get(memberId);
@@ -131,11 +195,11 @@ public class MemberService {
 		
 	}
 	
-	public void printAllMembers() {
-
-	    for (Member member : db.memberDB.values()) {
-	        member.printInfo();
-	    }
-
-	}
+//	public void printAllMembers() {
+//
+//	    for (Member member : db.memberDB.values()) {
+//	        member.printInfo();
+//	    }
+//
+//	}
 }
