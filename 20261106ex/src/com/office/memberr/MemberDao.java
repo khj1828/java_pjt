@@ -1,0 +1,82 @@
+package com.office.memberr;
+
+import java.util.HashMap;
+
+public class MemberDao {
+	
+	/*
+	 * gildong : MemberDto
+	 */
+	
+	HashMap<String, MemberDto> db = new HashMap<String, MemberDto>();
+
+	public boolean isMember(String memId) {
+		
+		MemberDto memberDto = db.get(memId);
+		
+		return memberDto != null ? true : false;
+		
+		
+	}
+
+	public int insertNewMember(MemberDto memberDto) {
+		
+		db.put(memberDto.getMemId(), memberDto);
+		
+		
+		
+		return db.get(memberDto.getMemId()) != null ? 1 : 0;   //0 or 1
+		
+		
+	}
+
+	public MemberDto searchMemberByMemIdAndMemPw(MemberDto memberDto) {
+		
+		MemberDto dto = db.get(memberDto.getMemId());
+		
+		
+		if (dto != null && dto.getMemPW().equals(memberDto.getMemPW())) {
+			return dto;
+				
+			} else {
+				return null;
+				
+			}
+		
+		}
+
+	public MemberDto deletMemberByMemIdAndMemPw(MemberDto memberDto) {
+		
+        MemberDto dto = db.get(memberDto.getMemId());
+        
+		
+		
+		if (dto != null && dto.getMemPW().equals(memberDto.getMemPW())) {
+			MemberDto deletedMemberDto = db.remove(memberDto.getMemId());
+			
+			if (deletedMemberDto !=null) {
+				return deletedMemberDto; 
+			
+			} else {
+				return null;
+			}
+				
+			} else {
+				return null;
+				
+			}
+		
+		}
+
+	public MemberDto updateMemberByMemId(MemberDto memberDto) {
+		
+		db.put(memberDto.getMemId(), memberDto);
+		
+		return db.get(memberDto.getMemId());
+		
+		
+	}
+	
+		
+		
+	}
