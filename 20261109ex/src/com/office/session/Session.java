@@ -26,8 +26,8 @@ public class Session {
 			
 		}
 
-	public HashMap<String, Object> getAttributies() {
-		return attributies;
+	public Object getAttribute(String name) {
+		return attributies.get(name);
 	}
 	
 	public void setAttribute(String name, Object object) {

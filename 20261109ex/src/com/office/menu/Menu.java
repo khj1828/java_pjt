@@ -2,6 +2,7 @@ package com.office.menu;
 
 import java.util.HashMap;
 
+import com.office.config.Config;
 import com.office.session.Session;
 
 public class Menu {
@@ -20,10 +21,10 @@ public class Menu {
 	
 	public static void generateMenu() {
 		
-		HashMap<String, Object> attributies = Session.getInstance().getAttributies();
-		Object object = attributies.get("signInedMemberId");    //!null  or null  로그인 or 로그아웃
+//		HashMap<String, Object> attributies = Session.getInstance().getAttribute(Config.SIGNINED_MEMBER_ID);
+//		Object object = attributies.get();    //!null  or null  로그인 or 로그아웃
 		
-		if (object == null) {
+		if (Session.getInstance().getAttribute(Config.SIGNINED_MEMBER_ID) == null) {
 			System.out.println("1.SIGN-UP    2.SIGN-IN    99.SYSTEM-OUT");
 			
 		} else {
